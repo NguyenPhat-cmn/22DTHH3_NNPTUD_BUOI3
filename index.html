@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Product Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        tbody tr:hover {
+            background: #f1f1f1;
+            cursor: pointer;
+        }
+        
+        img.thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+
+</head>
+
+<body class="bg-light">
+
+    <div class="container mt-4">
+
+        <h2 class="mb-3">Product Dashboard</h2>
+
+        <div class="row mb-3">
+
+            <div class="col-md-3">
+                <input id="searchInput" class="form-control" placeholder="Search by title...">
+            </div>
+
+            <div class="col-md-2">
+                <select id="pageSize" class="form-select">
+<option value="5">5 rows</option>
+<option value="10" selected>10 rows</option>
+<option value="20">20 rows</option>
+</select>
+            </div>
+
+            <div class="col-md-4">
+                <button onclick="exportCSV()" class="btn btn-success">
+Export CSV
+</button>
+
+                <button onclick="openCreateModal()" class="btn btn-primary ms-2">
++ Create
+</button>
+            </div>
+
+        </div>
+
+        <table class="table table-bordered table-hover bg-white">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+
+                    <th>
+                        Title
+                        <button class="btn btn-sm btn-light" onclick="sortBy('title')">⇅</button>
+                    </th>
+
+                    <th>
+                        Price
+                        <button class="btn btn-sm btn-light" onclick="sortBy('price')">⇅</button>
+                    </th>
+
+                    <th>Category</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+
+        </table>
+
+        <nav>
+            <ul class="pagination" id="pagination"></ul>
+        </nav>
+
+    </div>
+
+
+    <!-- DETAIL MODAL -->
+    <div class="modal fade" id="detailModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Product Detail</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden" id="editId">
+
+                    <div class="mb-2">
+                        <label>Title</label>
+                        <input id="editTitle" class="form-control">
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Price</label>
+                        <input id="editPrice" type="number" class="form-control">
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Description</label>
+                        <textarea id="editDescription" class="form-control"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button onclick="updateProduct()" class="btn btn-warning">
+Update
+</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CREATE MODAL -->
+    <div class="modal fade" id="createModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5>Create Product</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input id="newTitle" class="form-control mb-2" placeholder="Title">
+
+                    <input id="newPrice" type="number" class="form-control mb-2" placeholder="Price">
+
+                    <textarea id="newDesc" class="form-control mb-2" placeholder="Description"></textarea>
+
+                    <input type="file" id="newImage" class="form-control mb-2" accept="image/*">
+
+                    <img id="previewImg" style="width:120px;display:none" class="rounded">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button onclick="createProduct()" class="btn btn-success">
+Create
+</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
